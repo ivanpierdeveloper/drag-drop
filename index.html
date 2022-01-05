@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<!-- <html lang="en"> -->
+<html lang="it">
+
+<head>
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'none' ; script-src resource:; "> -->
+    <meta charset="utf-8">
+    <meta http-equiv="content-language" content="IT">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dati utente">
+    <meta name="author" content="https://ivanpierdeveloper.it">
+    <meta name="keywords" content="app, create-file-csv">
+    <link rel="shortcut icon" href="img/favicon-radius-8px-50.png" type="image/x-icon" sizes="16x16">
+    <link rel="stylesheet" type="text/css" href="docs/css/root.css">
+    <link rel="stylesheet" type="text/css" href="docs/css/my-alert.css">
+    <link rel="stylesheet" href="docs/css/style.css">
+    <link rel="stylesheet" href="docs/css/tooltip.css" type="text/css">
+    <title>Home | Drag & Drop</title>
+    <style type="text/css">
+        table {
+            table-layout: fixed;
+            width: 100%;
+            word-wrap: break-word;
+            height: auto;
+            color: var(--yellow);
+        }
+        
+        table caption {
+            color: var(--white);
+            text-align: center;
+        }
+        
+        table th {
+            border: 1px solid var(--danger);
+        }
+        
+        table td {
+            border: 1px solid var(--orange);
+            text-align: center;
+            font-size: 8pt;
+        }
+        
+        .tooltip {
+            width: 25%;
+        }
+        
+        .tooltip button {
+            width: 100%;
+        }
+        
+        .tooltip span {
+            font-size: 8pt;
+            padding: 18px;
+        }
+        
+        .div-0 {
+            border: 1px solid var(--success);
+            border-radius: 8px;
+            padding: 18px;
+        }
+        
+        .wrapper-2 {
+            /*
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            */
+            display: none;
+        }
+        
+        .wrapper-child {
+            border: 1px solid var(--secondary);
+            padding: 18px;
+            border-radius: 8px;
+            margin-top: 18px;
+            margin-bottom: 18px;
+        }
+        
+        .div-1 img,
+        .div-2 img,
+        .div-0 img {
+            width: 15%;
+            height: 80px;
+            cursor: move;
+        }
+        
+        .content-button {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+        
+        .content-button div {
+            width: 100%;
+        }
+        /* NEW */
+        
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        
+        .box {
+            border: 3px solid #666;
+            background-color: #ddd;
+            border-radius: .5em;
+            padding: 10px;
+            cursor: move;
+            z-index: 1;
+        }
+        
+        .box.over {
+            border: 3px dotted #666;
+        }
+        
+        .box img {
+            width: 100%;
+            height: 80px;
+        }
+        /* NEW */
+        
+        .content-image {
+            margin-top: 5px;
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            padding: 18px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* grid-template-rows: repeat(10, 1fr); */
+            gap: 18px;
+            text-align: center;
+        }
+        
+        .title-after-save-data-show {
+            margin-top: 5px;
+            border: 1px solid var(--indianred);
+            border-radius: 8px;
+            padding: 18px;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="full-screen"></div>
+    <!-- ./full-screen -->
+    <div class="my-alert"></div>
+    <!-- ./my-alert -->
+    <div class="loader"></div>
+    <!-- loader-->
+    <div class="loader-text"></div>
+    <!-- loader-text -->
+    <div class="container">
+        <h1 class="root-text-indianred root-text-align-center root-text-color-blue">drag & drop</h1>
+        <hr />
+        <div class="content root-text-align-center root-display-none">
+            <!--<div class="tble-excel root-display-none"></div>-->
+            <div class="div-0" id="div0" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p class="root-text-color-secondary">lista avatar</p>
+                <hr />
+                <img alt="not image" id="drag1" name="img1" draggable="true" ondragstart="drag(event)" />
+                <img alt="not image" id="drag2" name="img2" draggable="true" ondragstart="drag(event)" />
+                <img alt="not image" id="drag3" name="img3" draggable="true" ondragstart="drag(event)" />
+                <img alt="not image" id="drag4" name="img4" draggable="true" ondragstart="drag(event)" />
+                <img alt="not image" id="drag5" name="img5" draggable="true" ondragstart="drag(event)" />
+                <img alt="not image" id="drag6" name="img6" draggable="true" ondragstart="drag(event)" />
+
+            </div>
+        </div>
+        <!-- ./content -->
+        <div class="wrapper-2">
+            <div class="div-1 wrapper-child" id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h1 class="root-text-color-azzurro">div - 1</h1>
+                <hr />
+
+            </div>
+            <div class="div-2 wrapper-child" id="div2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h1 class="root-text-color-giallo">div - 2</h1>
+                <hr />
+            </div>
+        </div>
+        <!-- ./wrapper-2 -->
+
+        <div class="title-new-example root-text-align-center root-display-none">
+            <hr />
+            <h1 class="root-text-color-secondary">NEW EXAMPLE</h1>
+        </div>
+        <!-- ./title-new-example -->
+        <div class="wrapper">
+            <div draggable="true" class="box" id="box-1">
+                <img alt="not image" id="drag1BIS" name="img1" />
+            </div>
+            <div draggable="true" class="box" id="box-2">
+                <img alt="not image" id="drag2BIS" name="img1" />
+            </div>
+            <div draggable="true" class="box" id="box-3">
+                <img alt="not image" id="drag3BIS" name="img1" />
+            </div>
+        </div>
+        <!-- ./wrapper -->
+        <div class="title-after-save-data root-display-none root-text-align-center">
+            <span class="root-text-color-secondary">
+                dati caricati correttamente
+            </span>
+        </div>
+        <!-- title-after-save-data -->
+        <div class="content-image box" draggable="true" id="box-4"></div>
+        <!-- ./content-image -->
+        <div class="content-button">
+            <div class="tooltip">
+                <span class="tooltiptext">mostra</span>
+                <button class="btn btn-c" onclick="javascript:verifica();">verifica dati</button>
+            </div>
+            <div class="tooltip">
+                <span class="tooltiptext">reset</span>
+                <button class="btn btn-p" onclick="javascript:ripeti();">ripristina</button>
+            </div>
+        </div>
+        <!-- ./content-button -->
+    </div>
+    <!-- ./container -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+    <!-- ./lib google ajax -->
+    <script lang="javascript" src="docs/js/my-alert.js" defer></script>
+    <!-- my-alert js -->
+    <!-- (defer) non accesso dall'esterno -->
+    <script lang="javascript" src="docs/js/script.js" defer></script>
+    <!-- script js -->
+    <script lang="javascript" defer>
+        'use strict'
+
+        let ar0 = Array();
+        let arPROV = Array();
+        let div = String();
+        var img1 = document.querySelector('#drag1');
+        var img2 = document.querySelector('#drag2');
+        var img3 = document.querySelector('#drag3');
+        var img4 = document.querySelector('#drag4');
+        var img5 = document.querySelector('#drag5');
+        var img6 = document.querySelector('#drag6');
+
+        var img1BIS = document.querySelector('#drag1BIS');
+        var img2BIS = document.querySelector('#drag2BIS');
+        var img3BIS = document.querySelector('#drag3BIS');
+
+        function loadImage() {
+            try {
+                ar0.push({
+                        div: "div0",
+                        img: "img/avatar/default.png"
+                    }, {
+                        div: "div0",
+                        img: "img/avatar/avatar-3.png"
+                    }, {
+                        div: "div0",
+                        img: "img/avatar/avatar-1.png"
+                    }, {
+                        div: "div0",
+                        img: "img/avatar/avatar-2.png"
+                    }, {
+                        div: "div0",
+                        img: "img/avatar/avatar-4.png"
+                    }, {
+                        div: "div0",
+                        img: "img/avatar/avatar-5.png"
+                    }
+
+                );
+
+                img1.src = ar0[0].img;
+                img2.src = ar0[1].img;
+                img3.src = ar0[2].img;
+                img4.src = ar0[3].img;
+                img5.src = ar0[4].img;
+                img6.src = ar0[5].img;
+
+                img1BIS.src = ar0[0].img;
+                img2BIS.src = ar0[1].img;
+                img3BIS.src = ar0[5].img;
+            } catch (Exception) {
+                fnc.showMyAlert("avviso", `errore: ${Exception.message}`, 'var(--danger)', 'var(--yellow)', 'var(--dark)', 'var(--yellow)');
+            }
+        }
+        loadImage();
+        /*
+                function allowDrop(ev) {
+                    // riferimento al div dove vuoi aggiungere l'immagine.
+                    // (nota devi posizionare l'immagine esattamente all'interno del div
+                    // per recuperare il su o id).
+                    // questo evento viene eseguito quando muovi l'elemento.
+                    ev.preventDefault();
+                    // console.log("allowDROP ", ev.target.id);
+                }
+
+                function drag(ev) {
+                    // riferimento all'immagine
+
+                    ev.dataTransfer.setData("text", ev.target.id);
+                    // console.log("drag ", ev.target.id);
+
+                }
+
+                function drop(ev) {
+                    // riferimento al div dove vuoi aggiungere l'immagine.
+                    // (nota devi posizionare l'immagine esattamente all'interno del div
+                    // per recuperare il su o id).
+                    // questo evento viene eseguito quando lasci l'elemento.
+                    ev.preventDefault();
+                    // console.log("drop ", ev.target.id);
+
+                    var data = ev.dataTransfer.getData("text");
+                    ev.target.appendChild(document.getElementById(data));
+                    let img_selected = document.querySelector(`#${data}`);
+                    /*
+                    console.table({
+                        "id image": img_selected.name
+                    })
+                    */
+        /*
+                        // console.log(ev.target.id);
+                        if (ev.target.id === "div1" || ev.target.id === "div2" || ev.target.id === "div0") {
+                            div = ev.target.id;
+                            console.log(div);
+                        } else {
+                            alert("Non hai posizionato l'elemento all'interno del div.\nPosizionare meglio l'elemento.");
+                            return false;
+                        }
+
+                        var src_attr = img_selected.getAttribute('src');
+                        populate(ar0, src_attr, div);
+
+
+
+                    } // ./function
+        
+            function populate(arrayDIV, src_attr, div) {
+                arrayDIV.forEach(function(val, indice) {
+                    if (val.img == src_attr) {
+                        //for (var num in ar2) { // sintassi più breve
+                        // or
+                        // console.log("div1");
+                        for (var i = 0; i < arrayDIV.length; i++) {
+                            if (arrayDIV[i].img == val.img) {
+                                arPROV.push({
+                                    div: div,
+                                    img: arrayDIV[i].img
+                                }); // ./push
+                                // arrayDIV.splice(i, 1);
+                                console.table({
+                                    "message": "0K",
+                                    "code": 200
+                                });
+                            }
+                        }
+                    } // ./if val.img
+                }); // ./ forEach
+                // fnc.stampa(ar0, arPROV, 0, 0, 0);
+                cls.stampaDATA(ar0);
+            }
+
+            function verifica() {
+                /*
+                const div0 = document.querySelector('.div-0').innerHTML = "<p class='root-text-color-secondary'>" +
+                    "lista avatar</p><hr /><h1 class='root-text-color-secondary'>nessuna avatar disponibile</h1>";
+                const div1 = document.querySelector('.div-1');
+                const div2 = document.querySelector('.div-2');
+                div1.innerHTML = '<h1 class="root-text-color-azzurro">div - 1</h1><hr />';
+                div2.innerHTML = '<h1 class="root-text-color-giallo">div - 2</h1><hr />';
+                arPROV.forEach(function(val) {
+                    console.table({
+                        "div": val.div,
+                        "img": val.img
+                    })
+                    if (val.div === "div1") {
+                        const img = document.createElement('img');
+                        img.src = val.img;
+                        img.alt = "not image";
+                        div1.appendChild(img);
+                    } else if (val.div === "div2") {
+                        const img = document.createElement('img');
+                        img.src = val.img;
+                        img.alt = "not image";
+                        div2.appendChild(img);
+                    }
+                });
+                */
+
+        //}
+        /*
+                function ripeti() {
+                    window.location.reload();
+                }
+        */
+        // ## NEW
+        //document.addEventListener('DOMContentLoaded', (event) => {  // ./funziona bene anche senza questo
+
+        let dragSrcEl = "";
+
+        function handleDragStart(e) {
+            // elemento div INIZIO
+            console.log("handleDragStart ", e.target.id);
+            if (e.target.id == "box-1" || e.target.id == "box-2" || e.target.id == "box-3" || e.target.id == "box-4") {
+
+                this.style.opacity = '0.4';
+                dragSrcEl = this;
+
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/html', this.innerHTML);
+
+            } else {
+                fnc.showMyAlert("avviso", "selezionare sul bordo e trascinare", 'var(--info)', 'var(--indianred)', 'var(--white)', 'var(--indianred)');
+                return false;
+            }
+        }
+
+        function handleDragEnd(e) {
+            // elemento div FINE
+            console.log("handleDragEnd ", e.target.id);
+            this.style.opacity = '1';
+
+            items.forEach(function(item) {
+                item.classList.remove('over');
+            });
+
+        }
+
+        function handleDragOver(e) {
+            // elemento div SOPRA
+            console.log("handleDragOver ", e.target.id);
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            // elemento div quando ENTRA NELL'INTERA AREA DELL'ELEMENTO
+            console.log("handleDragEnter ", e.target.id);
+            this.classList.add('over');
+        }
+
+        function handleDragLeave(e) {
+            // elemento div il precedente che aveva il FOCUS
+            this.classList.remove('over');
+        }
+
+        function handleDrop(e) {
+            // elemento div AZIONE COMPLETATA
+            console.log("handleDrop ", e.target.id);
+            e.stopPropagation(); // stops the browser from redirecting.
+            if (e.target.id == "box-4") {
+                //dragSrcEl.innerHTML = this.innerHTML;
+                document.querySelector('#box-4').innerHTML += (e.dataTransfer.getData('text/html'));
+                document.querySelector('#box-4').classList.remove('over');
+                arPROV.push(e.dataTransfer.getData('text/html'));
+            }
+            /* else {
+                           if (dragSrcEl !== this) {
+                               dragSrcEl.innerHTML = this.innerHTML;
+                               this.innerHTML = e.dataTransfer.getData('text/html');
+                           }
+                       } */
+            return false;
+        }
+
+        let items = document.querySelectorAll('.wrapper .box');
+        items.forEach(function(item) {
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragover', handleDragOver);
+            item.addEventListener('dragenter', handleDragEnter);
+            item.addEventListener('dragleave', handleDragLeave);
+            item.addEventListener('dragend', handleDragEnd);
+            item.addEventListener('drop', handleDrop);
+        });
+        let content_image = document.querySelector('.content-image');
+        content_image.addEventListener('dragstart', handleDragStart);
+        content_image.addEventListener('dragover', handleDragOver);
+        content_image.addEventListener('dragenter', handleDragEnter);
+        content_image.addEventListener('dragleave', handleDragLeave);
+        content_image.addEventListener('dragend', handleDragEnd);
+        content_image.addEventListener('drop', handleDrop);
+        //}); // ./funziona bene anche senza questo
+
+
+        function verifica() {
+            try {
+                let ar = arPROV.length;
+                if (ar > 0) {
+                    const content_image = document.querySelector('#box-4');
+                    const title = document.querySelector('.title-after-save-data');
+                    title.classList.remove('root-display-none');
+                    title.classList.add('title-after-save-data-show');
+                    content_image.innerHTML = null;
+                    arPROV.forEach(function(html) {
+                        content_image.innerHTML += (html);
+                    }); // ./forEach
+                } else {
+                    fnc.showMyAlert("avviso", "non ci sono immagini salvate", 'var(--primary)', 'var(--white)', 'var(--warning)', 'var(--dark)');
+                    return false;
+                }
+            } catch (Exception) {
+                fnc.showMyAlert("avviso", `errore: ${Exception.message}`, 'var(--danger)', 'var(--yellow)', 'var(--dark)', 'var(--yellow)');
+            }
+        }
+
+        function ripeti() {
+            window.location.reload();
+        }
+
+
+        // ## NEW
+    </script>
+</body>
+
+</html>
