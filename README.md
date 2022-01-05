@@ -1,5 +1,5 @@
 # INIZIO
 -> DRAG & DROP 
-Trascina immagini e popola il div
+<p>Trascina immagini e popola il div</p>
 
 # FINE
