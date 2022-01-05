@@ -1,2 +1,5 @@
-# drag-drop
-trascina immagini e popola il div
+# INIZIO
+-> DRAG & DROP 
+Trascina immagini e popola il div
+
+# FINE
